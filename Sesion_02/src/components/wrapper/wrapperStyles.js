@@ -1,8 +1,7 @@
-import styledComponents from "styled-components/native";
+import styledComponents from 'styled-components/native'
 
 export const WrapperContainer = styledComponents.View`
-    flex: 1;
+    padding: 2rem;
+    height: 100%;
     background-color: #fff;
-    align-items: center;
-    justify-content: center;
-`;
+`
