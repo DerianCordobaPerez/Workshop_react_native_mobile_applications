@@ -29,7 +29,7 @@ export default function SignIn() {
         if (data.error) {
           alert(data.error)
         } else {
-          handleUser(data.user)
+          handleUser(data)
         }
       })
       .catch((err) => console.log(err))

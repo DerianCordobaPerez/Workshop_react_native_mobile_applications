@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import Button from '../components/button'
 import { useNavigation } from '@react-navigation/native'
 import Wrapper from '../components/wrapper'
@@ -7,38 +7,22 @@ import { UserContext } from '../hooks/useUser'
 
 export default function Home() {
   const navigation = useNavigation()
-  const [persons, setPersons] = useState([])
-  const { handleLogout } = useContext(UserContext)
+  const [movies, setMovies] = useState([])
+  const { user, handleLogout } = useContext(UserContext)
 
   useEffect(() => {
-    fetch('https://randomuser.me/api/?results=5')
-      .then((response) => response.json())
-      .then((data) => setPersons(data.results))
+    fetch('http://localhost:4000/api/movie/find', {
+      headers: {
+        'x-auth-token': user.token
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => setMovies(data))
   }, [])
 
   return (
     <Wrapper>
-      <Text>Home Screen</Text>
-
-      {persons.map((person) => (
-        <View key={person.email}>
-          <Text>
-            {person.name.first} {person.name.last} - {person.email} -{' '}
-            {person.phone}
-          </Text>
-
-          <Button
-            title="Go to Details"
-            onPress={() =>
-              navigation.navigate('Details', {
-                name: person.name.first,
-                email: person.email,
-                phone: person.phone
-              })
-            }
-          />
-        </View>
-      ))}
+      <Text>{JSON.stringify(movies)}</Text>
 
       <Button
         title="Go to About"
